@@ -1,27 +1,26 @@
-# Use Node image
 FROM node:18
 
-# Set environment variables
+WORKDIR /usr/src/app
+
+# Copy relevant files so Docker caches properly
+COPY package*.json tsconfig.json ./
+
+# Temporarily disable production mode to fetch devDependencies
+RUN npm install --production=false
+
+# Disable production again before building runtime image
 ENV NODE_ENV=production
 ENV PORT=4000
 
-# Set working directory
-WORKDIR /usr/src/app
-
-# Copy package files
-COPY package*.json tsconfig.json ./
-
-# Install dependencies including pm2
-RUN npm install --production
-
-# Copy source files
+# Copy remaining source files
 COPY . .
 
-# Compile TypeScript to JavaScript
+# Build the TypeScript project
 RUN npm run build
 
-# Expose app port
+# Remove devDependencies to minimize final image size
+RUN npm prune --production
+
 EXPOSE 4000
 
-# Use pm2 to manage the compiled JS file
 CMD ["npx", "pm2-runtime", "dist/index.js"]
