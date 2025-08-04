@@ -1,0 +1,7 @@
+# exclude env file
+/env
+
+#exlcude firebase
+/src/model/firebaseServiceAccount.json
+
+/dist
