@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import db from "../../model/firebase";
-import dayjs from "dayjs";
+import getViews from "../../utils/getViews";
 
 const COINS_PER_AD = 10; // 🔹 Now 10 coins per ad
 
@@ -8,16 +8,12 @@ const adViewController = async (req: Request, res: Response) => {
   const { uid }: { uid: number } = req.body;
   if (!uid) return res.status(400).json({ error: "Missing uid" });
 
-  const today = dayjs().format("YYYY-MM-DD");
   try {
     const adRef = db.collection("adViews").doc(uid.toString());
     const coinRef = db.collection("coinBalances").doc(uid.toString());
 
     const adSnap = await adRef.get();
-    let views = 0;
-    if (adSnap.exists && adSnap.data().date === today) {
-      views = adSnap.data().count || 0;
-    }
+    const { views, today } = getViews(adSnap);
 
     if (views >= 10) {
       return res.json({
