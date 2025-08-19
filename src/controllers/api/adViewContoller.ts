@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import db from "../../model/firebase";
 import getViews from "../../utils/getViews";
 
-const COINS_PER_AD = 20; // 🔹 Now 10 coins per ad
+const COINS_PER_AD = 10; // 🔹 Now 10 coins per ad
 
 const adViewController = async (req: Request, res: Response) => {
   const { uid }: { uid: number } = req.body;
@@ -15,7 +15,7 @@ const adViewController = async (req: Request, res: Response) => {
     const adSnap = await adRef.get();
     const { views, today } = getViews(adSnap);
 
-    if (views >= 10) {
+    if (views >= 20) {
       return res.json({
         allowed: false,
         totalViews: views,
@@ -36,7 +36,7 @@ const adViewController = async (req: Request, res: Response) => {
     await db.collection("transactions").add({
       userId: String(uid),
       type: "ad_reward",
-      amount: 10,
+      amount: COINS_PER_AD,
       description: "Earned from watching an ad",
       date: new Date().toISOString(),
     });

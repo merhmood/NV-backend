@@ -38,6 +38,7 @@ app.use(cookieParser());
 const bot = new Telegraf(process.env.BOT_TOKEN as string);
 
 bot.start(async (ctx) => {
+  const res = await ctx.telegram.getChatMember(CHANNEL_ID, ctx.from.id);
   try {
     await ctx.replyWithPhoto(
       { source: "./logo.jpg" },
@@ -55,13 +56,9 @@ bot.start(async (ctx) => {
             [
               {
                 text: "Enter Gallery",
-                url: "https://nuttyvibescontent.netlify.app",
-              },
-            ],
-            [
-              {
-                text: "Join Channel",
-                url: "https://t.me/nuttandvibestelegram",
+                login_url: {
+                  url: "https://api.nuttyvibes.com/auth",
+                },
               },
             ],
           ],
