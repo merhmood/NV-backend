@@ -40,7 +40,7 @@ const authController = (req: Request, res: Response) => {
   });
 
   // Redirect back to frontend
-  res.redirect(`https://nuttyvibes-contents.netlify.app/login-success`);
+  res.redirect(`https://nuttyvibes-contents.netlify.app`);
 };
 
 export default authController;
