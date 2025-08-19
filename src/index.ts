@@ -22,7 +22,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "https://nuttyvibes-contents.netlify.app", // Replace with your frontend origin
+  origin: ["https://nuttyvibes-contents.netlify.app", "https://nuttyvibes.com"], // Replace with your frontend origin
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // Allow cookies, authorization headers, etc.
 };
