@@ -14,11 +14,14 @@
   "description": "",
   "dependencies": {
     "body-parser": "^2.2.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dayjs": "^1.11.13",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "firebase-admin": "^13.4.0",
+    "jsonwebtoken": "^9.0.2",
     "pm2": "^6.0.8",
     "telegraf": "^4.16.3"
   },

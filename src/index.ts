@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import { Telegraf, Markup } from "telegraf";
 import express, { Request, Response } from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
 
@@ -11,15 +12,19 @@ import getCoinsController from "./controllers/api/initController";
 import CHANNEL_ID from "./channelID";
 import verifyPurchase from "./controllers/bot/verifyPurchase";
 import transactionsController from "./controllers/api/transactionsController";
+import authController from "./controllers/api/authController";
+import loginController from "./controllers/api/loginController";
 
 dotenv.config();
 
 // App server.
 const app = express();
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({}));
 
 app.use(bodyParser.json());
+
+app.use(cookieParser());
 
 const bot = new Telegraf(process.env.BOT_TOKEN as string);
 
@@ -75,9 +80,12 @@ bot.command("login", async (ctx) => {
           : `\n\nJoin our channel for updates and support. <a href="https://t.me/nuttandvibestelegram">Join Channel</a>`
       }`,
       Markup.inlineKeyboard([
-        Markup.button.url(
+        Markup.button.login(
           "Enter Gallery",
-          "https://nuttyvibescontent.netlify.app"
+          "https://api.nuttyvibes.com/auth",
+          {
+            request_write_access: true,
+          }
         ),
       ])
     );
@@ -131,6 +139,10 @@ app.get("/get-coins/:uid", getCoinsController);
 
 // --- Get Transactions ---
 app.get("/transactions/:userId", transactionsController);
+
+app.get("/auth", authController);
+
+app.get("/user", loginController);
 
 // Handle Telegram updates via webhook
 app.use(bot.webhookCallback(`/bot${bot.telegram.token}`));
