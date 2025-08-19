@@ -29,7 +29,7 @@ const authController = (req: Request, res: Response) => {
   };
 
   // Create JWT for session
-  const token = jwt.sign(user, JWT_SECRET, { expiresIn: "7d" });
+  const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "7d" });
 
   // Set as HTTP-only cookie
   res.cookie("auth_token", token, {

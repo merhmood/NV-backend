@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import dayjs from "dayjs";
 import db from "../../model/firebase";
 import getViews from "../../utils/getViews";
 

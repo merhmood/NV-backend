@@ -14,6 +14,7 @@ import verifyPurchase from "./controllers/bot/verifyPurchase";
 import transactionsController from "./controllers/api/transactionsController";
 import authController from "./controllers/api/authController";
 import loginController from "./controllers/api/loginController";
+import userCoinsontroller from "./controllers/api/userCoinsController";
 
 dotenv.config();
 
@@ -150,6 +151,8 @@ app.get("/transactions/:userId", transactionsController);
 app.get("/auth", authController);
 
 app.get("/user", loginController);
+
+app.get("/user-coins/:uid", userCoinsontroller);
 
 // Handle Telegram updates via webhook
 app.use(bot.webhookCallback(`/bot${bot.telegram.token}`));
