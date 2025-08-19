@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import db from "../../model/firebase";
 import getViews from "../../utils/getViews";
 
-const COINS_PER_AD = 10; // 🔹 Now 10 coins per ad
+const COINS_PER_AD = 20; // 🔹 Now 10 coins per ad
 
 const adViewController = async (req: Request, res: Response) => {
   const { uid }: { uid: number } = req.body;

@@ -15,6 +15,7 @@ import transactionsController from "./controllers/api/transactionsController";
 import authController from "./controllers/api/authController";
 import loginController from "./controllers/api/loginController";
 import userCoinsontroller from "./controllers/api/userCoinsController";
+import deductCoinsontroller from "./controllers/api/deductCoinsController";
 
 dotenv.config();
 
@@ -144,6 +145,9 @@ app.post("/ad-view", adViewController);
 
 // --- Get Coins ---
 app.get("/get-coins/:uid", getCoinsController);
+
+// --- Deduct Coins ---
+app.post("/deduct-coins", deductCoinsontroller);
 
 // --- Get Transactions ---
 app.get("/transactions/:userId", transactionsController);
