@@ -57,7 +57,7 @@ bot.start(async (ctx) => {
               {
                 text: "Enter Gallery",
                 login_url: {
-                  url: "https://api.nuttyvibes.com/auth",
+                  url: "https://nuttyvibes-contents.netlify.app/auth",
                 },
               },
             ],
@@ -88,7 +88,7 @@ bot.command("login", async (ctx) => {
       Markup.inlineKeyboard([
         Markup.button.login(
           "Enter Gallery",
-          "https://api.nuttyvibes.com/auth",
+          "https://nuttyvibes-contents.netlify.app/auth",
           {
             request_write_access: true,
           }

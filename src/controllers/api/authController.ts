@@ -19,6 +19,9 @@ function checkTelegramAuth(data: any, BOT_TOKEN: string): boolean {
 }
 
 const authController = (req: Request, res: Response) => {
+  console.log("Auth data:", req.query);
+  console.log("Hash check:", checkTelegramAuth(req.query, BOT_TOKEN));
+
   if (!checkTelegramAuth(req.query, BOT_TOKEN)) {
     return res.status(401).send("Unauthorized");
   }
@@ -39,8 +42,8 @@ const authController = (req: Request, res: Response) => {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
-  // Redirect back to frontend
-  res.redirect(`https://nuttyvibes-contents.netlify.app`);
+  // Send user id
+  res.status(200).json({ id: user.id });
 };
 
 export default authController;
